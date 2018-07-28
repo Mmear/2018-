@@ -1,0 +1,23 @@
+<template>
+    <div class="hello">
+        <input value="{= msg =}" />
+        {{name}},Hello {{msg}}!
+    </div>
+</template>
+
+<script>
+    export default {
+        initData: function() {
+            return {
+                name: "Mirr",
+                msg: "World"
+            }
+        }
+    }
+</script>
+
+<style>
+    .hello {
+        background-color: #f1f1f1;
+    }
+</style>
