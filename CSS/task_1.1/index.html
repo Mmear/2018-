@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS Task_1.1</title>
+    <link rel="stylesheet" href="./main.css"/>
+    <style>
+        #box {
+            width: 500px;
+            margin: auto;
+            font-size: 25px;
+        }
+        #menu-item {
+            width: 50%;
+            margin:10px auto;
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+        }
+        #menu-label {
+            display: inline-block;
+            padding-bottom: 5px;
+            -o-transition: .3s color linear;
+            -webkit-transition: .3s color linear;
+            transition: .3s color linear;
+        }
+        #menu-border {
+            display: block;
+            height: 5px;
+            width: 50%;
+            margin: auto;
+            -o-transition: .3s all ease;
+            -webkit-transition: .3s all ease;
+            transition: .3s all ease;
+        }
+        #change-btn {
+            display: block;
+            width: 25%;
+            margin: auto;
+            padding: 5px 10px 5px 10px;
+            font-size: 20px;
+            outline: none;
+            background-color: #fff;
+            border: #aaa 1px solid;
+            border-radius: 5px;
+            transition: .3s background ease;
+        }
+        #change-btn:hover {
+            background-color: #ddd;
+        }
+        #change-btn:active {
+            background-color: #ccc;
+        }
+        .active {
+            color: #55aef6; 
+        }
+        /* 拉伸底部线条 */
+        .stretch {
+            transform: scaleX(1);
+            background-color: #55aef6;
+        }
+        /* 收缩底部线条 */
+        .short {
+            transform: scaleX(0);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div id="menu-item">
+            <span id="menu-label" class="inactive">前端学院</span>
+            <span id="menu-border" class="short"></span>
+        </div>
+        <button id="change-btn" onclick="changeStyle()">
+            <span>改变样式</span>
+        </button>
+    </div>
+
+    <script>
+        function changeStyle(e) {
+            e = e || window.event;
+            let btn = document.querySelector('#menu-label');
+            let border = document.querySelector('#menu-border');
+            if(btn.classList.contains('active')) {
+                btn.classList.remove('active');
+
+                border.classList.remove('stretch');
+                border.classList.add('short');
+            } else {
+                btn.classList.add('active');
+
+                border.classList.remove('short');
+                border.classList.add('stretch');
+            }
+        }
+    </script>
+</body>
+</html>
