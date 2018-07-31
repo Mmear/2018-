@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS Task_2.1</title>
+    <style>
+        #container {
+            width: 50%;
+            margin: 50px auto;
+            display: flex;
+            justify-content: space-around;
+        }
+        #container div {
+            width: 80px;
+            height: 80px;
+            text-align: center;
+            background-color: #55aef6;
+        }
+        #box-2 {
+            -webkit-transform: skew(30deg);
+            -moz-transform: skew(30deg);
+            -ms-transform: skew(30deg);
+            -o-transform: skew(30deg);
+            transform:skew(30deg);
+        }
+        #box-3 {
+            -webkit-transform: scaleX(0.5);
+            -moz-transform: scaleX(0.5);
+            -ms-transform: scaleX(0.5);
+            -o-transform: scaleX(0.5);
+            transform: scaleX(0.5);
+        }
+        #box-4 {
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+        #box-5 {
+            -webkit-transform: translateX(10px) translateY(20px);
+            -moz-transform: translateX(10px) translateY(20px);
+            -ms-transform: translateX(10px) translateY(20px);
+            -o-transform: translateX(10px) translateY(20px);
+            transform: translateX(10px) translateY(20px);
+        }
+        #box-6 {
+            -webkit-transform: skew(30deg) scaleX(0.5) rotate(45deg) translateX(10px) translateY(30px);
+            -moz-transform: skew(30deg) scaleX(0.5) rotate(45deg) translateX(10px) translateY(30px);
+            -ms-transform: skew(30deg) scaleX(0.5) rotate(45deg) translateX(10px) translateY(30px);
+            -o-transform: skew(30deg) scaleX(0.5) rotate(45deg) translateX(10px) translateY(30px);
+            transform: skew(30deg) scaleX(0.5) rotate(45deg) translateX(10px) translateY(30px);               
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="box-1">box-0</div>
+        <div id="box-2">box-1</div>
+        <div id="box-3">box-2</div>
+        <div id="box-4">box-3</div>
+        <div id="box-5">box-4</div>
+        <div id="box-6">box-5</div>
+    </div>
+</body>
+</html>
