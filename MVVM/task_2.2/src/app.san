@@ -1,0 +1,112 @@
+<template>
+    <div id="root">
+        <div id="container">
+            姓名：<input id="name-input" type="text">
+            状态：<select id="status-input">
+                    <option value="合格">合格</option>
+                    <option value="不合格">不合格</option>
+                  </select>
+            <input type="button" id="add-btn" value="添加" on-click='addItem'>
+        </div>
+        <table border='1'>
+            <tr>
+                <th>姓名</th>
+                <th>审核状态</th>
+                <th>操作</th>
+            </tr>
+
+            <tr san-for='p in items'>
+                <td>{{p.name}}</td>
+                <td>{{p.status}}</td>
+                <td san-if="p.status !== '待审核'">
+                    <input type="button" value="删除" on-click='deleteItem(p)'>
+                </td>
+                <td san-else>
+                    <input type="button" value="审核" on-click='checkItem(p)'>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</template>
+
+<script>
+    export default {
+        initData: function() {
+            return {
+                items: [
+                    { name: 'Mirr', status: '待审核' },
+                    { name: 'Mike', status: '合格' },
+                    { name: 'Sandy', status: '不合格' },
+                    { name: 'Corodian', status: '待审核' },
+                ]
+            }
+        },
+        deleteItem: function(item) {
+            let index;
+            let items = this.data.get('items');
+            this.data.get('items').forEach((e, ind) => {
+                if(e.name === item.name)
+                    index = ind;
+            });
+            this.data.removeAt('items', index);
+        },
+        checkItem: function(item) {
+            let index;
+            let items = this.data.get('items');
+            items.forEach((e, ind) => {
+                if (e.name === item.name)
+                    index = ind;
+            });
+            let temp = items[index];
+            temp.status = '合格';
+            this.data.splice('items', [index, 1]);
+            this.data.splice('items', [index, 0, temp]);
+        },
+        addItem: function() {
+            this.data.push('items', {
+                name: document.getElementById('name-input').value || 'none',
+                status: document.getElementById('status-input').value
+            })
+        }
+    }
+</script>
+
+<style>
+    #root {
+        display: flex;
+        flex-direction: column;
+    }
+    table {
+        margin-top: 1em;
+        text-align: center;
+        border-collapse: collapse;
+    }
+    table tr:first-child {
+        background-color: #55aef6;
+        color: #fff;
+        border-top: 1px #fff solid;
+    }
+    table tr th {
+        padding: 10px;
+    }
+    table tr td {
+        padding: 5px 10px;
+        min-width: 100px;
+    }
+    input[type='button'] {
+        border: 1px #f1f1f1 solid;
+        outline: none;
+        width: 100%;
+        height: 80%;
+    }
+    input[type='button']:hover {
+        background-color: #eee;
+    }
+    input[type='button']:active {
+        background-color: #aaa;
+    }
+    #add-btn {
+        width: 8%;
+    }
+</style>
