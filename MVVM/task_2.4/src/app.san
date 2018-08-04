@@ -1,0 +1,130 @@
+<template>
+    <div id="root">
+        <grand-com>
+            <parent-com>
+                <child-com></child-com>
+            </parent-com>
+        </grand-com>
+    </div>
+</template>
+<script>
+    import san from 'san';
+    let child_com = san.defineComponent({
+        template: '<div>' +
+                  '<span>子组件</span>' + 
+                  '<input class="child-com" type="text" value="{{childVal}}"/>' + 
+                  '<button on-click="notice">通知父组件</button>' + 
+                  '</div>',
+        initData: function () {
+            return {
+                childVal: ''
+            }
+        },
+        notice: function () {
+            let val = document.querySelector(".child-com").value;
+            if (val === '') {
+                return;
+            } else {
+                this.dispatch('notice:upper', val);
+            }
+        },
+        attached: function() {
+            this.dispatch('child:attached');
+        }
+    });
+    let parent_com = san.defineComponent({
+        template: '<div>' + 
+                  '<span>父组件</span>' +
+                  '<input class="parent-com" type="text" value="{{parentVal}}"  on-input="change"/>' + 
+                  '<slot></slot>' + 
+                  '</div>',
+        initData: function() {
+            return {
+                parentVal: '等待输入'
+            }
+        },
+        messages: {
+            'notice:upper': function(arg) {
+                console.log(arg.value);
+                this.data.set('parentVal', arg.value);
+                this.dispatch('notice:upper', arg.value);
+                document.querySelector('.parent-com').classList.add('parent-com-noticed');
+                setTimeout(() => {
+                    document.querySelector('.parent-com').classList.remove('parent-com-noticed');
+                }, 500);
+            },
+            'child:attached': function (arg) {
+                this.child = arg.target;
+            }
+        },
+        change: function () {
+            console.log('ddd');
+            let val = document.querySelector('.parent-com').value;        
+            let tar = this.child;
+            tar.data.set('childVal', val);
+        },
+        child: undefined
+    });
+    let grand_com = san.defineComponent({
+        template:   '<div>' + 
+                    '<span>高级父组件</span>' + 
+                    '<input class="grand-com" type="text" value="{{grandVal}}"/>'+
+                    '<slot></slot>' + 
+                    '</div>',
+        initData: function () {
+            return {
+                grandVal: '等待输入'
+             }
+        },
+        messages: {
+            'notice:upper': function(arg) {
+                this.data.set('grandVal', arg.value);
+                document.querySelector('.grand-com').classList.add('grand-com-noticed');
+                setTimeout(() => {
+                    document.querySelector('.grand-com').classList.remove('grand-com-noticed');
+                }, 500);
+            }
+        }
+    });
+    export default {
+        components: {
+            "child-com": child_com,
+            "parent-com": parent_com,
+            "grand-com": grand_com
+        },
+        initData: function() {
+            return{
+
+            };
+        }
+    }
+</script>
+<style>
+    #root {
+        width: 500px;
+        margin: 10px auto;
+        font-size: 20px;
+        background-color: #f1f1f1;
+        padding: 10px;
+    }
+    span {
+        display: block;
+    }
+    button {
+        background-color: #fff;
+    }   
+    .parent-com, .grand-com {
+        outline: none;
+        border: none;
+        color: #55aef6;
+    }
+    .child-com {
+        margin-right: 10px;
+    }
+    .parent-com-noticed {
+        color: #bb74a1;
+    }
+    .grand-com-noticed {
+        color: #55f7b6;
+    }
+</style>
