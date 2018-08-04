@@ -1,0 +1,28 @@
+<template>
+    <div id="block" on-click='changeStyle' class="block {{blueSty ? 'blue' : 'red'}}"></div>
+</template>
+<script>
+    export default {
+        initData: function() {
+            return {
+                blueSty: false
+            }
+        },
+        changeStyle: function() {
+            let isBlue = this.data.get('blueSty');
+            this.data.set('blueSty', !isBlue);
+        }
+    }
+</script>
+<style>
+    .block {
+        width:100px;
+        height:100px;  
+    }
+    .red {
+        background:red;      
+    }
+    .blue {
+        background-color: blue;
+    }
+</style>
